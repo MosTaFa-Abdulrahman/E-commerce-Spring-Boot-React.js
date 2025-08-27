@@ -137,7 +137,7 @@ public class SecurityConfig {
 
         // Enhanced CORS configuration for Vercel deployment
         configuration.setAllowedOriginPatterns(Arrays.asList(
-                "https://react-ecommerce-rho-nine.vercel.app",
+                "https://react-ecommerce-two-sepia.vercel.app",
                 "https://*.vercel.app", // Allow any Vercel subdomain
                 "http://localhost:5173", // For Vite local development
                 "http://localhost:3000" // For local development
