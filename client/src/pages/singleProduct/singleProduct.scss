@@ -1,0 +1,788 @@
+@import "../../styles/responsive.scss";
+
+// Color Variables
+$primary-color: #007bff;
+$primary-hover: #0056b3;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$danger-color: #dc3545;
+$warning-color: #ffc107;
+$light-gray: #f8f9fa;
+$medium-gray: #e9ecef;
+$dark-gray: #495057;
+$text-color: #212529;
+$text-muted: #6c757d;
+$border-color: #dee2e6;
+$white: #ffffff;
+$black: #000000;
+
+// Spacing Variables
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+// Border Radius
+$border-radius-sm: 0.25rem;
+$border-radius-md: 0.5rem;
+$border-radius-lg: 0.75rem;
+
+// Box Shadow
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-fast: 0.15s ease-in-out;
+$transition-normal: 0.3s ease-in-out;
+
+.single-product {
+  min-height: 100vh;
+  background-color: $light-gray;
+  padding: $spacing-lg $spacing-md;
+  margin-top: 50px;
+
+  @include md {
+    padding: $spacing-md $spacing-sm;
+  }
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: $white;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+  }
+
+  // Loading & Error States
+  &__loading,
+  &__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: $spacing-xl;
+    text-align: center;
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid $medium-gray;
+      border-top: 4px solid $primary-color;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: $spacing-md;
+    }
+
+    p,
+    h2 {
+      color: $text-muted;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: $spacing-sm;
+      color: $text-color;
+    }
+  }
+
+  // Main Product Section
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xxl;
+    padding: $spacing-xxl;
+
+    @include lg {
+      grid-template-columns: 1fr;
+      gap: $spacing-xl;
+      padding: $spacing-xl;
+    }
+
+    @include md {
+      padding: $spacing-lg;
+      gap: $spacing-lg;
+    }
+  }
+
+  // Image Section
+  &__image-section {
+    position: relative;
+  }
+
+  &__image-container {
+    position: relative;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    background-color: $light-gray;
+    aspect-ratio: 1;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform $transition-normal;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__image-actions {
+    position: absolute;
+    top: $spacing-md;
+    right: $spacing-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__action-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba($white, 0.9);
+    color: $text-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all $transition-fast;
+    box-shadow: $shadow-sm;
+
+    &:hover {
+      background-color: $white;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+    }
+
+    // Heart button specific styles
+    &--heart {
+      &:hover {
+        color: $danger-color;
+      }
+
+      // When the product is in favorites (active state)
+      &--active {
+        background-color: rgba($danger-color, 0.1);
+
+        .single-product__heart--filled {
+          color: $danger-color;
+          fill: $danger-color;
+        }
+      }
+    }
+
+    &--share:hover {
+      color: $primary-color;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  // Heart icon specific styles
+  &__heart--filled {
+    color: $danger-color !important;
+    fill: $danger-color !important;
+  }
+
+  // Loading spinner for heart button
+  &__action-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  // Info Section
+  &__info-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__header {
+    border-bottom: 1px solid $border-color;
+    padding-bottom: $spacing-lg;
+  }
+
+  &__category {
+    font-size: 0.875rem;
+    color: $primary-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $text-color;
+    margin: 0 0 $spacing-md 0;
+    line-height: 1.2;
+
+    @include md {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__rating-overview {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+  }
+
+  &__stars {
+    display: flex;
+    gap: $spacing-xs;
+  }
+
+  &__rating-text {
+    font-size: 0.875rem;
+    color: $text-muted;
+  }
+
+  &__description {
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: $text-color;
+      margin: 0;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-xs;
+
+    &-currency {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-muted;
+    }
+
+    &-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: $primary-color;
+
+      @include md {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__stock {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-sm $spacing-md;
+    background-color: $light-gray;
+    border-radius: $border-radius-md;
+    width: fit-content;
+
+    &-icon {
+      width: 18px;
+      height: 18px;
+      color: $success-color;
+    }
+
+    &-text {
+      font-size: 0.875rem;
+      color: $text-color;
+      font-weight: 500;
+    }
+  }
+
+  &__purchase-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $border-color;
+  }
+
+  &__quantity {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+
+    &-label {
+      font-weight: 600;
+      color: $text-color;
+      font-size: 0.875rem;
+    }
+
+    &-controls {
+      display: flex;
+      align-items: center;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-md;
+      overflow: hidden;
+    }
+
+    &-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background-color: $white;
+      color: $text-color;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color $transition-fast;
+
+      &:hover:not(:disabled) {
+        background-color: $light-gray;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    &-display {
+      min-width: 60px;
+      padding: 0 $spacing-md;
+      text-align: center;
+      font-weight: 600;
+      color: $text-color;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $light-gray;
+    }
+  }
+
+  &__add-to-cart {
+    width: 100%;
+    padding: $spacing-md $spacing-xl;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-sm;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background-color: $primary-hover;
+      transform: translateY(-1px);
+      box-shadow: $shadow-md;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__trust-badges {
+    display: flex;
+    gap: $spacing-lg;
+    margin-top: $spacing-lg;
+    flex-wrap: wrap;
+
+    @include sm {
+      justify-content: center;
+    }
+  }
+
+  &__trust-badge {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: $text-muted;
+    font-size: 0.875rem;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: $success-color;
+    }
+  }
+
+  // Reviews Section
+  &__reviews-section {
+    border-top: 1px solid $border-color;
+    padding: $spacing-xxl;
+
+    @include lg {
+      padding: $spacing-xl;
+    }
+
+    @include md {
+      padding: $spacing-lg;
+    }
+  }
+
+  &__reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-color;
+      margin: 0;
+
+      @include sm {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  &__write-review-btn {
+    padding: $spacing-sm $spacing-lg;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $primary-hover;
+    }
+  }
+
+  // Review Form
+  &__review-form {
+    background-color: $light-gray;
+    padding: $spacing-xl;
+    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-xl;
+
+    @include md {
+      padding: $spacing-lg;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-lg;
+    }
+  }
+
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    label {
+      font-weight: 600;
+      color: $text-color;
+      font-size: 0.875rem;
+    }
+
+    textarea {
+      padding: $spacing-md;
+      border: 1px solid $border-color;
+      border-radius: $border-radius-md;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      transition: border-color $transition-fast;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+      }
+    }
+  }
+
+  &__rating-input {
+    display: flex;
+    gap: $spacing-xs;
+  }
+
+  &__form-actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    @include sm {
+      justify-content: stretch;
+
+      .single-product__btn {
+        flex: 1;
+      }
+    }
+  }
+
+  &__btn {
+    padding: $spacing-sm $spacing-lg;
+    border: none;
+    border-radius: $border-radius-md;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-fast;
+    min-width: 100px;
+
+    &--primary {
+      background-color: $primary-color;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        background-color: $primary-hover;
+      }
+
+      &:disabled {
+        background-color: $medium-gray;
+        cursor: not-allowed;
+      }
+    }
+
+    &--secondary {
+      background-color: $white;
+      color: $text-color;
+      border: 1px solid $border-color;
+
+      &:hover {
+        background-color: $light-gray;
+      }
+    }
+  }
+
+  // Reviews List
+  &__reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__reviews-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: $spacing-xl;
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid $medium-gray;
+      border-top: 3px solid $primary-color;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  &__review {
+    padding: $spacing-lg;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-lg;
+    background-color: $white;
+    transition: box-shadow $transition-fast;
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  &__review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-md;
+    gap: $spacing-md;
+  }
+
+  &__review-user {
+    display: flex;
+    gap: $spacing-md;
+    flex: 1;
+  }
+
+  &__review-avatar {
+    width: 44px;
+    height: 44px;
+    background-color: $light-gray;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-muted;
+    flex-shrink: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__review-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    min-width: 0;
+
+    h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-color;
+      margin: 0;
+    }
+  }
+
+  &__review-meta {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-wrap: wrap;
+  }
+
+  &__review-rating {
+    display: flex;
+    gap: 2px;
+  }
+
+  &__review-date {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    color: $text-muted;
+    font-size: 0.75rem;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &__delete-review {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background-color: transparent;
+    color: $text-muted;
+    border-radius: $border-radius-sm;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: rgba($danger-color, 0.1);
+      color: $danger-color;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__review-content {
+    p {
+      margin: 0;
+      line-height: 1.6;
+      color: $text-color;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__no-reviews {
+    text-align: center;
+    padding: $spacing-xxl;
+    color: $text-muted;
+
+    p {
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  // Star Component Styles
+  .star {
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &--small {
+      width: 14px;
+      height: 14px;
+    }
+
+    &--medium {
+      width: 18px;
+      height: 18px;
+    }
+
+    &--large {
+      width: 24px;
+      height: 24px;
+    }
+
+    &--filled {
+      color: $warning-color;
+    }
+
+    &--empty {
+      color: $medium-gray;
+    }
+
+    &--interactive {
+      &:hover {
+        transform: scale(1.1);
+        color: $warning-color;
+      }
+    }
+  }
+}
+
+// Keyframes
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

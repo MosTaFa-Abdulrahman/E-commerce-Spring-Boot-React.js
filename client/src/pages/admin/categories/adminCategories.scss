@@ -1,0 +1,692 @@
+@import "../../../styles/responsive.scss";
+
+.admin-categories {
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 100px;
+  min-height: calc(100vh - 200px);
+
+  @include lg {
+    padding: 24px;
+  }
+
+  @include md {
+    padding: 20px;
+  }
+
+  @include sm {
+    padding: 16px;
+  }
+
+  // Header Section
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    @include md {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .header-content {
+      flex: 1;
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.025em;
+
+    @include lg {
+      font-size: 2.25rem;
+    }
+
+    @include md {
+      font-size: 2rem;
+    }
+
+    @include sm {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__subtitle {
+    color: #6b7280;
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: 400;
+
+    @include sm {
+      font-size: 1rem;
+    }
+  }
+
+  &__add-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.25);
+    min-height: 48px;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.35);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: #d1d5db;
+      color: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    @include md {
+      width: 100%;
+      justify-content: center;
+    }
+
+    @include sm {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+
+  // Paper Container for DataGrid
+  &__paper {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+    @include sm {
+      border-radius: 12px;
+    }
+  }
+
+  // DataGrid Styling
+  &__data-grid {
+    border: none;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    // Header styling
+    .data-grid-header {
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #374151;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+
+      &:focus {
+        outline: none;
+      }
+
+      @include sm {
+        font-size: 0.8rem;
+      }
+    }
+
+    // Cell styling
+    .data-grid-cell {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 16px;
+      font-size: 0.9rem;
+      color: #374151;
+      font-weight: 500;
+
+      @include sm {
+        padding: 12px;
+        font-size: 0.85rem;
+      }
+
+      &:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: -2px;
+        border-radius: 4px;
+      }
+    }
+
+    // Row styling
+    .MuiDataGrid-row {
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background-color: rgba(59, 130, 246, 0.02);
+      }
+
+      &:nth-of-type(even) {
+        background-color: rgba(248, 250, 252, 0.5);
+      }
+
+      &.Mui-selected {
+        background-color: rgba(59, 130, 246, 0.08);
+
+        &:hover {
+          background-color: rgba(59, 130, 246, 0.12);
+        }
+      }
+    }
+
+    // Pagination styling
+    .MuiDataGrid-footerContainer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      background: #f8fafc;
+      padding: 16px;
+
+      @include sm {
+        padding: 12px;
+      }
+
+      .MuiTablePagination-root {
+        color: #6b7280;
+      }
+
+      .MuiTablePagination-selectLabel,
+      .MuiTablePagination-displayedRows {
+        font-weight: 500;
+      }
+    }
+
+    // No rows overlay
+    .MuiDataGrid-overlay {
+      background: rgba(248, 250, 252, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    // Scrollbar styling
+    .MuiDataGrid-virtualScroller {
+      &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 3px;
+
+        &:hover {
+          background: #9ca3af;
+        }
+      }
+    }
+  }
+}
+
+// Actions Cell Styling
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    @include sm {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .edit-button {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+
+    &:hover:not(:disabled) {
+      background: rgba(59, 130, 246, 0.2);
+      transform: scale(1.05);
+    }
+  }
+
+  .delete-button {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Modal Base Styling
+.category-modal,
+.delete-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+
+  @include sm {
+    border-radius: 12px;
+    width: 95vw;
+  }
+}
+
+// Category Modal (Create/Edit)
+.category-modal {
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 24px 0;
+    margin-bottom: 24px;
+
+    @include sm {
+      padding: 20px 20px 0;
+      margin-bottom: 20px;
+    }
+
+    .modal-header-content {
+      flex: 1;
+    }
+
+    .modal-close-button {
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      margin-left: 16px;
+
+      &:hover:not(:disabled) {
+        background: rgba(107, 114, 128, 0.1);
+        color: #374151;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.025em;
+
+    @include sm {
+      font-size: 1.25rem;
+    }
+  }
+
+  .modal-subtitle {
+    color: #6b7280;
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .modal-form {
+    padding: 0 24px 24px;
+
+    @include sm {
+      padding: 0 20px 20px;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #374151;
+    margin-bottom: 8px;
+    letter-spacing: 0.025em;
+
+    .required {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #111827;
+    background: white;
+    transition: all 0.2s ease;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #3b82f6;
+      ring: 3px;
+      ring-color: rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    &:disabled {
+      background: #f9fafb;
+      color: #9ca3af;
+      border-color: #e5e7eb;
+      cursor: not-allowed;
+    }
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+
+    @include sm {
+      flex-direction: column-reverse;
+      gap: 8px;
+    }
+  }
+}
+
+// Delete Modal
+.delete-modal {
+  text-align: center;
+
+  .delete-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 16px;
+
+    .warning-icon {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+    }
+
+    .modal-close-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #6b7280;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background: rgba(107, 114, 128, 0.1);
+        color: #374151;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .delete-modal-content {
+    padding: 0 24px 24px;
+
+    @include sm {
+      padding: 0 20px 20px;
+    }
+  }
+
+  .delete-modal-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 16px 0;
+  }
+
+  .delete-modal-message {
+    color: #374151;
+    font-size: 1rem;
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+
+    strong {
+      color: #111827;
+      font-weight: 600;
+    }
+  }
+
+  .delete-modal-warning {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .delete-modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding: 0 24px 24px;
+
+    @include sm {
+      flex-direction: column-reverse;
+      gap: 8px;
+      padding: 0 20px 20px;
+    }
+  }
+}
+
+// Button Styles
+.primary-button,
+.secondary-button,
+.danger-button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+
+  @include sm {
+    width: 100%;
+    padding: 14px 24px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+  }
+
+  &:disabled {
+    background: #d1d5db;
+    color: #9ca3af;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.secondary-button {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+
+  &:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: #9ca3af;
+  }
+}
+
+.danger-button {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+  }
+
+  &:disabled {
+    background: #d1d5db;
+    color: #9ca3af;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+// Loading and Error States
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 20px;
+  text-align: center;
+
+  h3 {
+    color: #374151;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.retry-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+  }
+}
+
+// Responsive DataGrid Adjustments
+@include sm {
+  .admin-categories__data-grid {
+    // Hide ID column on mobile
+    .MuiDataGrid-cell:first-child,
+    .MuiDataGrid-columnHeader:first-child {
+      display: none;
+    }
+  }
+
+  .actions-cell {
+    gap: 6px;
+  }
+}

@@ -1,0 +1,61 @@
+// Breakpoint Variables
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+// Dynamic Mixin for Max-Width Media Queries
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map.";
+  }
+}
+
+// Dynamic Mixin for Min-Width Media Queries
+@mixin respond-from($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Breakpoint '#{$breakpoint}' not found in $breakpoints map.";
+  }
+}
+
+// Compatibility Mixins for Existing Structure
+@mixin sm {
+  @include respond-to(sm) {
+    @content;
+  }
+}
+
+@mixin md {
+  @include respond-to(md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @include respond-to(lg) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @include respond-to(xl) {
+    @content;
+  }
+}
+
+@mixin xxl {
+  @include respond-to(xxl) {
+    @content;
+  }
+}

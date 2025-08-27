@@ -1,0 +1,682 @@
+@import "../../../styles/responsive.scss";
+
+.admin-orders {
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  margin-top: 100px;
+  min-height: calc(100vh - 200px);
+
+  @include lg {
+    padding: 24px;
+  }
+
+  @include md {
+    padding: 20px;
+  }
+
+  @include sm {
+    padding: 16px;
+  }
+
+  // Header Section
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 32px;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    @include md {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .header-content {
+      flex: 1;
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.025em;
+
+    @include lg {
+      font-size: 2.25rem;
+    }
+
+    @include md {
+      font-size: 2rem;
+    }
+
+    @include sm {
+      font-size: 1.75rem;
+    }
+  }
+
+  &__subtitle {
+    color: #6b7280;
+    font-size: 1.125rem;
+    margin: 0;
+    font-weight: 400;
+
+    @include sm {
+      font-size: 1rem;
+    }
+  }
+
+  &__add-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.25);
+    min-height: 48px;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.35);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: #d1d5db;
+      color: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    @include md {
+      width: 100%;
+      justify-content: center;
+    }
+
+    @include sm {
+      padding: 12px 24px;
+      font-size: 0.9rem;
+    }
+  }
+
+  // Paper Container for DataGrid
+  &__paper {
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+
+    @include sm {
+      border-radius: 12px;
+    }
+  }
+
+  // DataGrid Styling
+  &__data-grid {
+    border: none;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    // Header styling
+    .data-grid-header {
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: #374151;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+
+      &:focus {
+        outline: none;
+      }
+
+      @include sm {
+        font-size: 0.8rem;
+      }
+    }
+
+    // Cell styling
+    .data-grid-cell {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: #374151;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+
+      @include sm {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+
+      &:focus {
+        outline: 2px solid #3b82f6;
+        outline-offset: -2px;
+        border-radius: 4px;
+      }
+    }
+
+    // Row styling
+    .MuiDataGrid-row {
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background-color: rgba(59, 130, 246, 0.02);
+      }
+
+      &:nth-of-type(even) {
+        background-color: rgba(248, 250, 252, 0.5);
+      }
+
+      &.Mui-selected {
+        background-color: rgba(59, 130, 246, 0.08);
+
+        &:hover {
+          background-color: rgba(59, 130, 246, 0.12);
+        }
+      }
+    }
+
+    // Pagination styling
+    .MuiDataGrid-footerContainer {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      background: #f8fafc;
+      padding: 16px;
+
+      @include sm {
+        padding: 12px;
+      }
+
+      .MuiTablePagination-root {
+        color: #6b7280;
+      }
+
+      .MuiTablePagination-selectLabel,
+      .MuiTablePagination-displayedRows {
+        font-weight: 500;
+      }
+    }
+
+    // No rows overlay
+    .MuiDataGrid-overlay {
+      background: rgba(248, 250, 252, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    // Scrollbar styling
+    .MuiDataGrid-virtualScroller {
+      &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #d1d5db;
+        border-radius: 3px;
+
+        &:hover {
+          background: #9ca3af;
+        }
+      }
+    }
+  }
+}
+
+// Actions Cell Styling
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: transparent;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    @include sm {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .edit-button {
+    color: #3b82f6;
+    background: rgba(59, 130, 246, 0.1);
+
+    &:hover:not(:disabled) {
+      background: rgba(59, 130, 246, 0.2);
+      transform: scale(1.05);
+    }
+  }
+
+  .delete-button {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.2);
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Error Container
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+
+  .error-title {
+    color: #ef4444;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+  }
+
+  .retry-button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// order Modal
+.order-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  @include sm {
+    max-width: 95vw;
+    border-radius: 12px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 32px 32px 0 32px;
+    margin-bottom: 32px;
+
+    @include sm {
+      padding: 24px 24px 0 24px;
+      margin-bottom: 24px;
+    }
+
+    .modal-header-content {
+      flex: 1;
+      margin-right: 16px;
+    }
+
+    .modal-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.025em;
+
+      @include sm {
+        font-size: 1.5rem;
+      }
+    }
+
+    .modal-subtitle {
+      color: #6b7280;
+      font-size: 1rem;
+      margin: 0;
+      font-weight: 400;
+
+      @include sm {
+        font-size: 0.9rem;
+      }
+    }
+
+    .modal-close-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(107, 114, 128, 0.1);
+      color: #6b7280;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+
+      &:hover:not(:disabled) {
+        background: rgba(107, 114, 128, 0.2);
+        color: #374151;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      @include sm {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+
+  .modal-form {
+    padding: 0 32px 32px 32px;
+
+    @include sm {
+      padding: 0 24px 24px 24px;
+    }
+  }
+}
+
+// Modal Actions
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+  @include sm {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .secondary-button,
+  .primary-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 44px;
+    border: none;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none !important;
+    }
+
+    @include sm {
+      width: 100%;
+    }
+  }
+
+  .secondary-button {
+    background: #f9fafb;
+    color: #374151;
+    border: 1px solid #d1d5db;
+
+    &:hover:not(:disabled) {
+      background: #f3f4f6;
+      border-color: #9ca3af;
+    }
+  }
+
+  .primary-button {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+  }
+}
+
+// Button Spinner
+.button-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.update-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background-color: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: #0f9f74;
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.status-modal {
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .modal-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .modal-subtitle {
+      font-size: 0.9rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .current-status {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      .current-status-label {
+        font-weight: 500;
+        color: #374151;
+      }
+
+      .current-status-badge {
+        .status-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 10px;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .status-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .status-options-label {
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 0.75rem;
+
+        .status-option {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 10px 12px;
+          background: #f9fafb;
+          border: 2px solid transparent;
+          border-radius: 8px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          svg {
+            flex-shrink: 0;
+          }
+
+          &:hover {
+            background-color: #f3f4f6;
+          }
+
+          &:disabled {
+            background-color: #e5e7eb;
+            cursor: not-allowed;
+            opacity: 0.6;
+          }
+
+          &.current {
+            background-color: #ecfdf5;
+            border-style: dashed;
+            font-weight: 600;
+          }
+
+          .current-indicator {
+            font-size: 0.7rem;
+            color: #10b981;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    .secondary-button {
+      background: #f3f4f6;
+      color: #111827;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: #e5e7eb;
+      }
+
+      &:disabled {
+        background: #d1d5db;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+// Spin Animation
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
