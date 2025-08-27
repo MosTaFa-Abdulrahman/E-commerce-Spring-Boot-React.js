@@ -1,13 +1,17 @@
 {
-  "functions": {
-    "src/main/java/**/*.java": {
-      "runtime": "@vercel/java"
-    }
-  },
+  "buildCommand": "mvn clean package -DskipTests",
+  "outputDirectory": "target",
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.java"
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/$1"
     }
-  ]
+  ],
+  "env": {
+    "JAVA_HOME": "/opt/java/openjdk"
+  }
 }
