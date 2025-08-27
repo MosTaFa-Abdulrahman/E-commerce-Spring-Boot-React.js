@@ -1,16 +1,12 @@
 import axios from "axios";
 
 // const BASE_URL = "http://localhost:8080/api/";
-const BASE_URL = "https://spring-e-commerce-topaz.vercel.app/api/";
+const BASE_URL =
+  "https://spring-boot-ecommerce-production-ab42.up.railway.app/api/";
 
 const makeRequest = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
-  timeout: 10000, // 10 seconds timeout
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
 });
 
 // We'll set this reference when store is created
